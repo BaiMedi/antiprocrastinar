@@ -88,7 +88,7 @@
 <body>
   <div class="container">
     <h1>Plan Antiprocrastinación: Herramienta Interactiva</h1>
-    <p>Convierte tus ideas en resultados concretos con esta herramienta. Organiza tus objetivos, desglosa los pasos necesarios y asigna tiempos específicos para completar cada tarea.</p>
+    <p>Convierte tus ideas en resultados concretos con esta herramienta. Organiza tus objetivos, desglosa los pasos necesarios y asigna tiempos específicos para completar cada tarea. ¡Elimina la procrastinación y pon tus planes en marcha!</p>
 
     <div class="tool">
       <h2>Diseña tu plan de acción</h2>
@@ -110,7 +110,7 @@
 
     <div class="cta">
       <h3>ACTIVARÁS TU PROPIO CAMINO A LA LIBERTAD EN 72H!</h3>
-      <a href="https://klicana.work/p6Aik4">QUIERO INSCRIBIRME AHORA EN DL72H</a>
+      <a href="https://klicana.work/p6Aik4">QUIERO UNIRME AL DESAFÍO!</a>
     </div>
   </div>
 
@@ -125,12 +125,40 @@
         return;
       }
 
-      const stepsList = steps.split('\n').map((step, index) => `<li>${index + 1}. ${step}</li>`).join('');
+      // Procesar los pasos ingresados
+      const stepsList = steps.split('\n');
+      const suggestions = stepsList.map((step, index) => {
+        let suggestion = '';
+        if (step.toLowerCase().includes('buscar')) {
+          suggestion = 'Recuerda utilizar múltiples fuentes para enriquecer tu búsqueda y acelerar este paso.';
+        } else if (step.toLowerCase().includes('escribir')) {
+          suggestion = 'Intenta escribir durante sesiones de 25 minutos (método Pomodoro) para mantener el enfoque.';
+        } else if (step.toLowerCase().includes('revisar')) {
+          suggestion = 'Pide a alguien de confianza que revise lo que has hecho. Dos pares de ojos siempre son mejor que uno.';
+        } else {
+          suggestion = 'Divide esta tarea en subtareas más pequeñas si te sientes abrumado.';
+        }
+        return `<li>${index + 1}. ${step} - <em>Sugerencia:</em> ${suggestion}</li>`;
+      }).join('');
+
+      // Crear plan antiprocrastinación
+      const motivationalMessage = `
+        <p><strong>¡No pierdas de vista tu objetivo!</strong> Este plan está diseñado para ayudarte a eliminar la procrastinación y avanzar de forma constante hacia tu meta. La clave está en la acción continua, por más pequeña que sea.</p>
+        <p><strong>Plan innovador para evitar la procrastinación:</strong></p>
+        <ul>
+          <li><strong>Bloques de tiempo:</strong> Dedica bloques de 30-45 minutos a trabajar en tu objetivo sin distracciones.</li>
+          <li><strong>Recompensas rápidas:</strong> Después de completar cada paso, permítete una pequeña recompensa (como un descanso de 10 minutos o una taza de tu bebida favorita).</li>
+          <li><strong>Visualización diaria:</strong> Cada mañana, visualiza cómo te sentirás al haber logrado este objetivo. Mantén esa imagen en tu mente como motivación.</li>
+          <li><strong>Responsabilidad compartida:</strong> Cuenta a un amigo o compañero sobre tu objetivo y pídele que te pregunte sobre tu progreso cada pocos días. Esto te hará sentir más comprometido.</li>
+        </ul>
+      `;
+
       document.getElementById('result').innerHTML = `
         <h3>Tu plan de acción:</h3>
         <p><strong>Objetivo:</strong> ${goal}</p>
         <p><strong>Plazo estimado:</strong> ${time} días</p>
-        <ol>${stepsList}</ol>
+        <ol>${suggestions}</ol>
+        ${motivationalMessage}
       `;
     }
   </script>
